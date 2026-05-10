@@ -10,6 +10,13 @@
                        groups="account.group_account_invoice"
                        invisible="move_type not in ('in_invoice', 'in_receipt', 'in_refund')"/>
             </xpath>
+
+            <xpath expr="//field[@name='invoice_line_ids']/list//field[@name='price_unit']" position="after">
+                <field name="incurred_cost"
+                       widget="monetary"
+                       optional="show"
+                       groups="account.group_account_invoice"/>
+            </xpath>
         </field>
     </record>
 </odoo>

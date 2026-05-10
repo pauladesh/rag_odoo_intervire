@@ -1,6 +1,17 @@
 from odoo import api, fields, models
 
 
+class AccountMoveLine(models.Model):
+    _inherit = 'account.move.line'
+
+    incurred_cost = fields.Monetary(
+        string='Incurred Cost',
+        currency_field='currency_id',
+        groups='account.group_account_invoice',
+        help='Persisted cost copied from the sale order line as unit cost multiplied by the invoiced quantity.',
+    )
+
+
 class AccountMove(models.Model):
     _inherit = 'account.move'
 

@@ -59,3 +59,12 @@ class SaleOrderLine(models.Model):
         groups='account.group_account_invoice',
         help='Internal pro forma line-item cost visible to Accounting / Invoicing users only.',
     )
+
+    def _prepare_invoice_line(self, **optional_values):
+        vals = super()._prepare_invoice_line(**optional_values)
+        if vals.get('display_type') in ('line_section', 'line_subsection', 'line_note'):
+            return vals
+
+        quantity = optional_values.get('quantity', vals.get('quantity', self.qty_to_invoice))
+        vals['incurred_cost'] = self.sudo().cost_price * quantity
+        return vals
