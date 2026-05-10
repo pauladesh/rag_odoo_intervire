@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_proforma_linked_cost_list" model="ir.ui.view">
+        <field name="name">proforma.linked.cost.list</field>
+        <field name="model">proforma.linked.cost</field>
+        <field name="arch" type="xml">
+            <list string="Linked Costs" editable="bottom">
+                <field name="date"/>
+                <field name="sale_order_id"/>
+                <field name="cost_type"/>
+                <field name="account_move_id" invisible="cost_type != 'vendor_bill'" required="cost_type == 'vendor_bill'"/>
+                <field name="expense_id" invisible="cost_type != 'expense'" required="cost_type == 'expense'"/>
+                <field name="name"/>
+                <field name="currency_id" column_invisible="True"/>
+                <field name="amount" sum="Total Linked Costs" widget="monetary"/>
+                <field name="company_id" groups="base.group_multi_company"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_proforma_linked_cost_form" model="ir.ui.view">
+        <field name="name">proforma.linked.cost.form</field>
+        <field name="model">proforma.linked.cost</field>
+        <field name="arch" type="xml">
+            <form string="Linked Cost">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="sale_order_id"/>
+                            <field name="cost_type"/>
+                            <field name="date"/>
+                            <field name="company_id" groups="base.group_multi_company"/>
+                        </group>
+                        <group>
+                            <field name="account_move_id" invisible="cost_type != 'vendor_bill'" required="cost_type == 'vendor_bill'"/>
+                            <field name="expense_id" invisible="cost_type != 'expense'" required="cost_type == 'expense'"/>
+                            <field name="currency_id"/>
+                            <field name="amount" widget="monetary"/>
+                        </group>
+                    </group>
+                    <group>
+                        <field name="name"/>
+                        <field name="note"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_proforma_linked_cost" model="ir.actions.act_window">
+        <field name="name">Linked Costs</field>
+        <field name="res_model">proforma.linked.cost</field>
+        <field name="view_mode">list,form</field>
+        <field name="domain">[]</field>
+        <field name="context">{}</field>
+    </record>
+</odoo>

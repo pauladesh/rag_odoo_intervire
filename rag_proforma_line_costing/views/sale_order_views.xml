@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_order_form_inherit_rag_proforma_line_costing" model="ir.ui.view">
+        <field name="name">sale.order.form.proforma.line.costing</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div[@name='button_box']" position="inside">
+                <button name="action_view_linked_costs"
+                        type="object"
+                        class="oe_stat_button"
+                        icon="fa-money"
+                        groups="account.group_account_invoice"
+                        invisible="linked_cost_count == 0">
+                    <field name="linked_cost_count" widget="statinfo" string="Linked Costs"/>
+                </button>
+            </xpath>
+
+            <xpath expr="//field[@name='order_line']/form//field[@name='price_unit']" position="after">
+                <field name="cost_price"
+                       widget="monetary"
+                       groups="account.group_account_invoice"
+                       invisible="display_type"/>
+            </xpath>
+
+            <xpath expr="//field[@name='order_line']/list//field[@name='price_unit']" position="after">
+                <field name="cost_price"
+                       widget="monetary"
+                       optional="show"
+                       groups="account.group_account_invoice"
+                       invisible="is_downpayment"/>
+            </xpath>
+
+            <xpath expr="//page[@name='other_information']" position="after">
+                <page string="Linked Costs" name="linked_costs" groups="account.group_account_invoice">
+                    <field name="linked_cost_ids"
+                           context="{'default_sale_order_id': id, 'default_company_id': company_id, 'default_currency_id': currency_id}">
+                        <list editable="bottom">
+                            <field name="date"/>
+                            <field name="cost_type"/>
+                            <field name="account_move_id" invisible="cost_type != 'vendor_bill'" required="cost_type == 'vendor_bill'"/>
+                            <field name="expense_id" invisible="cost_type != 'expense'" required="cost_type == 'expense'"/>
+                            <field name="name"/>
+                            <field name="currency_id" column_invisible="True"/>
+                            <field name="amount" sum="Total Linked Costs" widget="monetary"/>
+                        </list>
+                    </field>
+                </page>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_order_line_tree_inherit_rag_proforma_line_costing" model="ir.ui.view">
+        <field name="name">sale.order.line.list.proforma.line.costing</field>
+        <field name="model">sale.order.line</field>
+        <field name="inherit_id" ref="sale.view_order_line_tree"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='price_subtotal']" position="before">
+                <field name="cost_price"
+                       widget="monetary"
+                       optional="show"
+                       groups="account.group_account_invoice"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="sale_order_line_view_form_readonly_inherit_rag_proforma_line_costing" model="ir.ui.view">
+        <field name="name">sale.order.line.form.proforma.line.costing</field>
+        <field name="model">sale.order.line</field>
+        <field name="inherit_id" ref="sale.sale_order_line_view_form_readonly"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='price_unit']" position="after">
+                <field name="cost_price"
+                       widget="monetary"
+                       groups="account.group_account_invoice"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>
