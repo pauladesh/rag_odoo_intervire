@@ -5,6 +5,31 @@
         <field name="model">account.move</field>
         <field name="inherit_id" ref="account.view_move_form"/>
         <field name="arch" type="xml">
+            <xpath expr="//div[@name='button_box']" position="inside">
+                <field name="intercompany_vendor_bill_id" invisible="1"/>
+                <field name="intercompany_source_invoice_id" invisible="1"/>
+                <button name="action_view_intercompany_vendor_bill"
+                        type="object"
+                        class="oe_stat_button"
+                        icon="fa-exchange"
+                        groups="account.group_account_invoice"
+                        invisible="not intercompany_vendor_bill_id">
+                    <div class="o_stat_info">
+                        <span class="o_stat_text">Vendor Bill</span>
+                    </div>
+                </button>
+                <button name="action_view_intercompany_source_invoice"
+                        type="object"
+                        class="oe_stat_button"
+                        icon="fa-exchange"
+                        groups="account.group_account_invoice"
+                        invisible="not intercompany_source_invoice_id">
+                    <div class="o_stat_info">
+                        <span class="o_stat_text">Source Invoice</span>
+                    </div>
+                </button>
+            </xpath>
+
             <xpath expr="//field[@name='ref'][@invisible=&quot;move_type not in ('in_invoice', 'in_receipt', 'in_refund')&quot;]" position="after">
                 <field name="proforma_sale_order_id"
                        groups="account.group_account_invoice"

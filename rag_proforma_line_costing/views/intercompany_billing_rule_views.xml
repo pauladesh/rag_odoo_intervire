@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_rag_intercompany_billing_rule_list" model="ir.ui.view">
+        <field name="name">rag.intercompany.billing.rule.list</field>
+        <field name="model">rag.intercompany.billing.rule</field>
+        <field name="arch" type="xml">
+            <list string="Intercompany Billing Rules">
+                <field name="active" widget="boolean_toggle"/>
+                <field name="seller_company_id"/>
+                <field name="buyer_company_id"/>
+                <field name="markup_percent"/>
+                <field name="purchase_journal_id"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_rag_intercompany_billing_rule_form" model="ir.ui.view">
+        <field name="name">rag.intercompany.billing.rule.form</field>
+        <field name="model">rag.intercompany.billing.rule</field>
+        <field name="arch" type="xml">
+            <form string="Intercompany Billing Rule">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="active"/>
+                            <field name="seller_company_id"/>
+                            <field name="buyer_company_id"/>
+                        </group>
+                        <group>
+                            <field name="markup_percent"/>
+                            <field name="purchase_journal_id"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_rag_intercompany_billing_rule" model="ir.actions.act_window">
+        <field name="name">Intercompany Billing Rules</field>
+        <field name="res_model">rag.intercompany.billing.rule</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <menuitem id="menu_rag_intercompany_billing_rule"
+              name="Intercompany Billing Rules"
+              parent="account.menu_finance_configuration"
+              action="action_rag_intercompany_billing_rule"
+              sequence="95"
+              groups="account.group_account_manager"/>
+</odoo>
