@@ -35,6 +35,20 @@ class SaleOrder(models.Model):
         action['display_name'] = _('Linked Costs')
         return action
 
+    def action_open_partial_invoice_wizard(self):
+        self.ensure_one()
+        return {
+            'name': _('Create Partial Invoice'),
+            'type': 'ir.actions.act_window',
+            'res_model': 'sale.partial.invoice.wizard',
+            'view_mode': 'form',
+            'target': 'new',
+            'context': {
+                'active_id': self.id,
+                'active_model': self._name,
+            },
+        }
+
 
 class SaleOrderLine(models.Model):
     _inherit = 'sale.order.line'

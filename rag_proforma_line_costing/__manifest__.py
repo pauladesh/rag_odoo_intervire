@@ -16,6 +16,7 @@
         'views/account_move_views.xml',
         'views/hr_expense_views.xml',
         'views/proforma_linked_cost_views.xml',
+        'wizard/sale_partial_invoice_wizard_views.xml',
     ],
     'installable': True,
     'application': False,

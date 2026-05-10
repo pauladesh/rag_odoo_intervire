@@ -1,2 +1,4 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
 access_proforma_linked_cost_invoice,proforma.linked.cost.invoice,model_proforma_linked_cost,account.group_account_invoice,1,1,1,1
+access_sale_partial_invoice_wizard_user,sale.partial.invoice.wizard.user,model_sale_partial_invoice_wizard,base.group_user,1,1,1,1
+access_sale_partial_invoice_wizard_line_user,sale.partial.invoice.wizard.line.user,model_sale_partial_invoice_wizard_line,base.group_user,1,1,1,1

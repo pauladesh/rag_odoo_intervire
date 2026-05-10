@@ -16,6 +16,14 @@
                 </button>
             </xpath>
 
+            <xpath expr="//button[@id='create_invoice']" position="after">
+                <button name="action_open_partial_invoice_wizard"
+                        type="object"
+                        string="Create Partial Invoice"
+                        class="btn-secondary"
+                        invisible="invoice_status != 'to invoice'"/>
+            </xpath>
+
             <xpath expr="//field[@name='order_line']/form//field[@name='price_unit']" position="after">
                 <field name="cost_price"
                        widget="monetary"

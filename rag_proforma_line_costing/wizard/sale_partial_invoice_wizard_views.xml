@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_sale_partial_invoice_wizard_form" model="ir.ui.view">
+        <field name="name">sale.partial.invoice.wizard.form</field>
+        <field name="model">sale.partial.invoice.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Create Partial Invoice">
+                <group>
+                    <field name="sale_order_id"/>
+                </group>
+                <field name="line_ids" nolabel="1">
+                    <list editable="bottom" create="false" delete="false">
+                        <field name="sequence" column_invisible="True" force_save="1"/>
+                        <field name="display_type" column_invisible="True" force_save="1"/>
+                        <field name="sale_line_id" column_invisible="True" force_save="1"/>
+                        <field name="product_id" readonly="1" force_save="1"/>
+                        <field name="name" readonly="1" force_save="1"/>
+                        <field name="product_uom_qty" readonly="1" force_save="1"/>
+                        <field name="qty_to_invoice_remaining" readonly="1" force_save="1"/>
+                        <field name="quantity_to_invoice"
+                               readonly="display_type"
+                               required="not display_type"/>
+                        <field name="product_uom_id" readonly="1" force_save="1"/>
+                    </list>
+                </field>
+                <footer>
+                    <button name="action_create_invoice"
+                            type="object"
+                            string="Create Invoice"
+                            class="btn-primary"/>
+                    <button string="Cancel" special="cancel" class="btn-secondary"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+</odoo>
